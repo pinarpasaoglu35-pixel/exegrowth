@@ -2,7 +2,60 @@
 // Keep the two in sync: if a migration changes a column, change it here.
 
 export type CvSource = "parsed" | "manual";
-export type OnboardingStep = "cv" | "profil" | "gorusme" | "egzersiz" | "tamam";
+export type OnboardingStep =
+  | "cv"
+  | "profil"
+  | "gorusme"
+  | "egzersiz"
+  | "rapor"
+  | "tamam";
+
+// ── Session metadata payloads (stored in sessions.metadata jsonb) ──
+
+// The structured interview state: this — never the raw transcript — is what
+// gets compiled into prompts. messages rows are archive/UI only.
+export interface InterviewQA {
+  topic: string;
+  question: string;
+  answer_summary: string;
+  signals: string[]; // evidence candidates for scoring
+}
+
+export interface InterviewState {
+  questions_asked: InterviewQA[];
+}
+
+export interface PendingQuestion {
+  question: string;
+  topic: string;
+  number: number;
+}
+
+export interface InterviewMetadata {
+  interview_state: InterviewState;
+  pending_question: PendingQuestion | null;
+  closing: string | null;
+}
+
+export interface DiagnosticExercises {
+  case: { title: string; scenario: string; guidance: string };
+  prioritization: {
+    title: string;
+    context: string;
+    items: string[]; // exactly 5
+    guidance: string;
+  };
+}
+
+export interface DiagnosticResponses {
+  case?: string;
+  prioritization?: { order: number[]; justification: string };
+}
+
+export interface DiagnosticMetadata {
+  exercises: DiagnosticExercises | null;
+  responses: DiagnosticResponses;
+}
 
 export interface Profile {
   user_id: string;
