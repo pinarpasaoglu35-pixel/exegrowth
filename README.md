@@ -48,6 +48,14 @@ explicitly approved, in a form they can inspect and edit at any time.
 
 4. Open http://localhost:3000
 
+### Database setup
+
+Run the migration once per Supabase project: open the Dashboard → **SQL
+Editor**, paste the contents of `supabase/migrations/0001_init.sql`, and run
+it. (Or, with the Supabase CLI linked to your project: `supabase db push`.)
+It creates all tables with owner-only Row Level Security and a trigger that
+auto-creates a `profiles` row for every new user.
+
 ### Supabase auth configuration
 
 In the Supabase Dashboard → **Authentication → URL Configuration**, add:
