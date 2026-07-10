@@ -145,8 +145,32 @@ export interface StateDiff {
   target_id: string | null;
   diff: Record<string, unknown>;
   status: DiffStatus;
+  user_note: string | null;
   resolved_at: string | null;
   created_at: string;
+}
+
+// Shapes of the diff payloads staged by lib/ai/diff.ts.
+export interface SkillDiffPayload {
+  domain: string;
+  category: string;
+  name: string;
+  score: RubricScore;
+  evidence: string;
+  counter_argument: string;
+  justification_4plus: string | null;
+  provisional: boolean;
+}
+
+export interface Priority {
+  skill_name: string;
+  why: string;
+  first_step: string;
+}
+
+export interface ProfileDiffPayload {
+  goals: string;
+  priorities: Priority[];
 }
 
 export interface Decision {
