@@ -17,6 +17,9 @@ export interface CompleteOptions {
   maxTokens?: number;
   // When set, the provider must return valid JSON conforming to this schema.
   jsonSchema?: Record<string, unknown>;
+  // Per-call override of the AI_MODEL default — lets individual kernel
+  // prompts (e.g. scoring) use a stronger model than extraction tasks.
+  model?: string;
 }
 
 export interface AIProvider {
