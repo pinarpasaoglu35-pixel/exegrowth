@@ -72,6 +72,23 @@ lib/ai/         provider adapter, state compiler, kernel prompts (Milestone 3+)
 supabase/       SQL migrations (Milestone 2+)
 ```
 
+## Smoke test (end-to-end, no browser)
+
+Exercises the whole Phase 1 flow over HTTP against a running instance —
+disposable user, fake-PDF CV parse, scripted interview (including a
+deliberately vague answer to exercise the follow-up logic), both diagnostics,
+diff assertions, approve/reject, final-state assertions, cleanup.
+
+```bash
+# .env.local additionally needs SUPABASE_SERVICE_ROLE_KEY
+npm run dev     # terminal 1
+npm run smoke   # terminal 2  (npm run smoke -- --keep retains the test user)
+```
+
+Notes: makes ~10-12 real AI calls per run; the test user is deleted at the
+end (everything cascades), so your real data is untouched. Pipe failures fail
+the run; model-quality judgments are reported as warnings.
+
 ## Environment variables
 
 See `.env.example`. **Never put a real secret in any committed file.**
